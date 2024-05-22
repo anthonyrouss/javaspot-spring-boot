@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${'JavaSpot - ' + section.title + ' Learning'}">JavaSpot - Course Section Learning</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/clike/clike.min.js"></script>
+</head>
+<body>
+
+<!-- Header -->
+<header class="p-3 mb-3 border-bottom">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a class="navbar-brand" href="#" style="font-size: 1.5rem;margin-right: 15px;">JavaSpot</a>
+
+            <ul class="nav col-12 col-lg-auto me-lg-auto justify-content-center mb-md-0">
+                <li><a href="#" class="nav-link px-2 link-body-emphasis">Home</a></li>
+                <li><a href="#" class="nav-link px-2 link-body-emphasis">Item 2</a></li>
+                <li><a href="#" class="nav-link px-2 link-body-emphasis">Item 3</a></li>
+            </ul>
+
+            <div class="dropdown text-end">
+                <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                </a>
+                <ul class="dropdown-menu text-small" style="">
+                    <li><a class="dropdown-item" href="#">New project...</a></li>
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Sign out</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#" th:href="@{'/chapters'}">Home</a></li>
+            <li class="breadcrumb-item"><a href="#" th:href="@{'/chapters/' + ${section.chapter.id} + '/sections'}" th:text="${section.chapter.title}">Chapter Title</a></li>
+            <li class="breadcrumb-item active" aria-current="page" th:text="${section.title}">Section Title</li>
+        </ol>
+    </nav>
+
+
+    <h2 class="mt-4 mb-3" th:text="${section.title}">Section Title</h2>
+
+
+    <!-- Video Player -->
+    <div class="card mb-4">
+        <div class="card-header">
+            Video
+        </div>
+        <div class="card-body text-center">
+            <video class="img-fluid" controls>
+                <source src="your-video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+    <!-- Editor -->
+    <div class="card mb-4">
+        <div class="card-header">
+            Java Code Editor
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <!-- Editor Column -->
+                <div class="col-md-6">
+                    <div class="form-group mb-4 code-editor">
+                        <textarea class="form-control" id="javaCode" rows="8" placeholder="Write your Java code here..." th:text="${section.title}"></textarea>
+                    </div>
+                </div>
+                <!-- Output Terminal Column -->
+                <div class="col-md-6">
+                    <div class="terminal">
+                        <div class="terminal-header">
+                            <span class="terminal-title">Output</span>
+                        </div>
+                        <div class="terminal-body">
+                            <pre id="output" class="m-0">Hello world!</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mb-3">
+            <button class="btn btn-primary w-50" id="runButton">Run</button>
+        </div>
+    </div>
+
+</div>
+
+<!-- Footer -->
+<footer class="bg-light text-center text-lg-start mt-5">
+    <div class="container p-4">
+        <p><small>© 2024 JavaSpot. Created as a University Assignment Project by <a href="#">dimitrisstyl7</a> &amp; <a href="#">anthonyrouss</a>. All Rights Reserved.</small></p>
+    </div>
+</footer>
+
+
+<script>
+    // Initialize CodeMirror
+    var javaCodeEditor = CodeMirror.fromTextArea(document.getElementById("javaCode"), {
+        lineNumbers: true, // Show line numbers
+        mode: "text/x-java", // Set Java syntax highlighting
+        theme: "default", // Set editor theme
+        indentUnit: 4, // Set indentation size to 4 spaces
+        autofocus: true // Automatically focus on the editor
+    });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

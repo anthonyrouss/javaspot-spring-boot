@@ -1,0 +1,73 @@
+.course-header {
+    background: #f8f9fa;
+    padding: 30px 0;
+}
+.chapter-card {
+    margin-bottom: 20px;
+}
+
+.chapter-card .card {
+    overflow: hidden;
+}
+
+.locked-overlay {
+    background: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.chapter-card:hover .locked-overlay {
+    opacity: 1;
+}
+
+.locked-text {
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.card-link {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit text color */
+}
+
+.card-link .card {
+    height: 100%; /* Ensure the card takes full height */
+}
+
+.terminal {
+    border: 1px solid #d1d1d1;
+    border-radius: 5px;
+    height: 300px;
+    overflow-y: auto;
+}
+
+.code-editor {
+    border: 1px solid #d1d1d1;
+    border-radius: 5px;
+    overflow-y: auto;
+}
+
+.terminal-header {
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    display: flex;
+    padding-left: 15px;
+}
+
+.terminal-title {
+    flex-grow: 1;
+}
+
+.terminal-body {
+    padding: 15px;
+}
