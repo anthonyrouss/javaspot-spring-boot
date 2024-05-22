@@ -1,11 +1,15 @@
 package gr.unipi.javaspot.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SourceType;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 @Entity
 @Table(name = "users")
+@Getter
 public class User {
 
     @Id
@@ -22,7 +26,8 @@ public class User {
     private Boolean enabled;
 
     @Column(nullable = false)
-    private LocalDateTime createdAt;
+    @CreationTimestamp(source = SourceType.DB)
+    private Instant createdOn;
 
     // Association with the role id
 

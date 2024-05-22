@@ -1,9 +1,11 @@
 package gr.unipi.javaspot.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 @Entity
 @Table(name = "roles")
+@Getter
 public class Role {
 
     @Id
