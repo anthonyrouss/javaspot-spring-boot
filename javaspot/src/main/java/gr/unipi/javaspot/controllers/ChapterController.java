@@ -1,13 +1,11 @@
 package gr.unipi.javaspot.controllers;
 
 import gr.unipi.javaspot.exceptions.ChapterNotFoundException;
-import gr.unipi.javaspot.exceptions.SectionNotFoundException;
 import gr.unipi.javaspot.models.Chapter;
-import gr.unipi.javaspot.models.Section;
 import gr.unipi.javaspot.services.ChapterService;
 import gr.unipi.javaspot.services.SectionService;
 import gr.unipi.javaspot.utils.ControllerConstants;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,16 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/chapters")
+@AllArgsConstructor
 public class ChapterController {
 
     private final ChapterService chapterService;
     private final SectionService sectionService;
-
-    @Autowired
-    public ChapterController(ChapterService chapterService, SectionService sectionService) {
-        this.chapterService = chapterService;
-        this.sectionService = sectionService;
-    }
 
     @GetMapping
     public String getChapters(Model model) {
