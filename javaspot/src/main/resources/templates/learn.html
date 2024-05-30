@@ -6,9 +6,6 @@
     <title th:text="${'JavaSpot - ' + section.title + ' Learning'}">JavaSpot - Course Section Learning</title>
     <link th:href="@{/css/styles.css}" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/clike/clike.min.js"></script>
 </head>
 <body>
 
@@ -61,8 +58,7 @@
             Video
         </div>
         <div class="card-body text-center">
-            <video class="img-fluid" controls>
-                <source src="your-video.mp4" type="video/mp4">
+            <video th:src="@{'/video/' + ${section.videoSourcePath}}" class="img-fluid w-100" controls autoplay>
                 Your browser does not support the video tag.
             </video>
         </div>
@@ -74,33 +70,15 @@
             Java Code Editor
         </div>
         <div class="card-body">
-            <div class="row">
-                <!-- Editor Column -->
-                <div class="col-md-6">
-                    <div class="form-group mb-4 code-editor">
-                        <textarea class="form-control" id="javaCode" rows="8" placeholder="Write your Java code here..." th:text="${section.title}"></textarea>
-                    </div>
-                </div>
-                <!-- Output Terminal Column -->
-                <div class="col-md-6">
-                    <div class="terminal">
-                        <div class="terminal-header">
-                            <span class="terminal-title">Output</span>
-                        </div>
-                        <div class="terminal-body">
-                            <pre id="output" class="m-0">Hello world!</pre>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="text-center mb-3">
-            <button class="btn btn-primary w-50" id="runButton">Run</button>
-        </div>
+            <!-- Add Loading spinner -->
+            <div th:data-pym-src="${section.embeddedEditorUrl}"></div>
     </div>
 
-</div>
+    </div>
 
+
+
+</div>
 <!-- Footer -->
 <footer class="bg-light text-center text-lg-start mt-5">
     <div class="container p-4">
@@ -108,19 +86,7 @@
     </div>
 </footer>
 
-
-<script>
-    // Initialize CodeMirror
-    var javaCodeEditor = CodeMirror.fromTextArea(document.getElementById("javaCode"), {
-        lineNumbers: true, // Show line numbers
-        mode: "text/x-java", // Set Java syntax highlighting
-        theme: "default", // Set editor theme
-        indentUnit: 4, // Set indentation size to 4 spaces
-        autofocus: true // Automatically focus on the editor
-    });
-</script>
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://www.jdoodle.com/assets/jdoodle-pym.min.js" type="text/javascript"> </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

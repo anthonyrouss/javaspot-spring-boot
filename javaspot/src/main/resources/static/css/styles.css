@@ -59,15 +59,14 @@
 .terminal-header {
     background-color: #333;
     color: #fff;
-    padding: 5px;
     display: flex;
-    padding-left: 15px;
+    padding: 5px 5px 5px 15px;
 }
 
 .terminal-title {
     flex-grow: 1;
 }
 
-.terminal-body {
-    padding: 15px;
+.card-body {
+    height: 100%;
 }

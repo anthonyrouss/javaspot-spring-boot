@@ -3,21 +3,17 @@ package gr.unipi.javaspot.services.impl;
 import gr.unipi.javaspot.models.Section;
 import gr.unipi.javaspot.repositories.SectionRepository;
 import gr.unipi.javaspot.services.SectionService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class SectionServiceImpl implements SectionService {
 
     private final SectionRepository sectionRepository;
-
-    @Autowired
-    public SectionServiceImpl(SectionRepository sectionRepository) {
-        this.sectionRepository = sectionRepository;
-    }
 
     @Override
     public List<Section> findAll() {

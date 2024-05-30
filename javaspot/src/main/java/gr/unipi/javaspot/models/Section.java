@@ -20,9 +20,11 @@ public class Section {
     @Column(nullable = false)
     private String description;
 
-    // chapter-x/section-y.mp4
     @Column(nullable = false)
     private String videoSourcePath;
+
+    @Column
+    private String embeddedEditorUrl;
 
     @ManyToOne
     @JoinColumn(nullable = false)
