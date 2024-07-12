@@ -3,7 +3,7 @@ package gr.unipi.javaspot.controllers;
 import gr.unipi.javaspot.exceptions.SectionNotFoundException;
 import gr.unipi.javaspot.models.Section;
 import gr.unipi.javaspot.services.SectionService;
-import gr.unipi.javaspot.utils.ControllerConstants;
+import gr.unipi.javaspot.enums.ControllerConstants;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
