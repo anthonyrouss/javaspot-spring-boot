@@ -29,4 +29,5 @@ public class SectionServiceImpl implements SectionService {
     public List<Section> getAllByChapterId(int chapterId) {
         return sectionRepository.findAllByChapterId(chapterId);
     }
+
 }
