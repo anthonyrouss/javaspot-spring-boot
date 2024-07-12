@@ -1,12 +1,15 @@
 package gr.unipi.javaspot.security;
 
+import gr.unipi.javaspot.enums.UserRole;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -14,7 +17,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfig {
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -29,16 +32,22 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .authorizeHttpRequests(configurer ->
-                        configurer.anyRequest().permitAll()
+                .addFilterBefore(new SignInPageFilter(), UsernamePasswordAuthenticationFilter.class)
+                .authorizeHttpRequests(configurer -> configurer
+                        .requestMatchers("/css/**", "/auth/signUp").permitAll()
+                        .anyRequest().hasAuthority(UserRole.STUDENT.getRole())
                 )
-                .formLogin(form ->
-                        form
-                                .loginPage("/auth/login")
-                                .loginProcessingUrl("/auth/authenticate-user")
-                                .permitAll()
+                .formLogin(form -> form
+                        .loginPage("/auth/signIn")
+                        .loginProcessingUrl("/auth/authenticate-user")
+                        .failureUrl("/auth/signIn?error")
+                        .permitAll()
                 )
-                .logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout")))
+                .logout(logout -> logout
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout"))
+                        .logoutSuccessUrl("/auth/signIn?logout")
+                        .permitAll()
+                )
                 .build();
     }
 
