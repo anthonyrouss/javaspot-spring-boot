@@ -20,7 +20,7 @@ public class Chapter {
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false) // nullable?
+    @Column(nullable = false)
     private String description;
 
 }
