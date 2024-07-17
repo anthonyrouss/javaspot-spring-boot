@@ -1,8 +1,10 @@
-package gr.unipi.javaspot.utils;
+package gr.unipi.javaspot.enums;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
 public enum ControllerConstants {
 
     CHAPTERS("chapters"),
@@ -11,7 +13,4 @@ public enum ControllerConstants {
 
     private final String htmlFilePath;
 
-    ControllerConstants(String htmlFilePath) {
-        this.htmlFilePath = htmlFilePath;
-    }
 }

@@ -4,7 +4,7 @@ import gr.unipi.javaspot.exceptions.ChapterNotFoundException;
 import gr.unipi.javaspot.models.Chapter;
 import gr.unipi.javaspot.services.ChapterService;
 import gr.unipi.javaspot.services.SectionService;
-import gr.unipi.javaspot.utils.ControllerConstants;
+import gr.unipi.javaspot.enums.ControllerConstants;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

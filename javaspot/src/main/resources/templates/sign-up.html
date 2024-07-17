@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <title>Student Sign Up Form</title>
+
+    <style>
+        .validation-error {
+            color: red;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+<h1 class="text-success text-center">Student Sign Up Form</h1>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <form id="registrationForm" th:object="${user}" th:action="@{/auth/signUp}" method="post">
+                        <div class="form-group">
+                            <label for="username">
+                                Username
+                            </label>
+                            <input type="text" class="form-control" id="username" name="username"
+                                   pattern="^[A-Za-z][A-Za-z0-9_]{7,29}$"
+                                   title="Username must be 8 to 30 characters long, start with a letter, and contain only letters, digits, and underscores."
+                                   th:field="*{username}" autocomplete="username" placeholder="Username" required/>
+                            <span class="validation-error" th:if="${#fields.hasErrors('username')}"
+                                  th:errors="*{username}"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">
+                                Password
+                            </label>
+                            <input type="password" class="form-control" id="password" name="password"
+                                   pattern="^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=!.<>])(?!.* ).{8,64}$"
+                                   title="Password must be 8 to 64 characters long and contains at least one letter, one digit, one special character (@#$%^&+=!.<>), and no spaces."
+                                   th:field="*{password}" autocomplete="password" placeholder="Password" required/>
+                            <span class="validation-error" th:if="${#fields.hasErrors('password')}"
+                                  th:errors="*{password}"></span>
+                        </div>
+                        <button class="btn btn-primary">
+                            Sign Up
+                        </button>
+                    </form>
+                    <p class="mt-3">
+                        Already have an account? <a th:href="@{/auth/signIn}">Sign In</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
