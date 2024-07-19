@@ -35,7 +35,7 @@ public class Exam {
     @Column(nullable = false)
     private ExamStatus status;
 
-    @OneToMany(mappedBy = "exam", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+    @OneToMany(mappedBy = "exam", cascade = CascadeType.ALL)
     private List<ExamQuestion> examQuestions;
 
     public void addQuestions(List<Question> questions) {
