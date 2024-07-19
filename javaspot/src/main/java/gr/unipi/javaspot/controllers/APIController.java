@@ -59,6 +59,7 @@ public class APIController {
     }
 
     @GetMapping("chapters/next")
+    @ResponseStatus(HttpStatus.OK)
     public List<ChapterDTO> getNextChapters(@RequestParam int prerequisiteChapterId) {
         return chapterService.getNextChapters(prerequisiteChapterId);
     }
