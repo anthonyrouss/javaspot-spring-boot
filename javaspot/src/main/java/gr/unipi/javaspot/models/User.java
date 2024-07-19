@@ -1,5 +1,6 @@
 package gr.unipi.javaspot.models;
 
+import gr.unipi.javaspot.enums.SkillLevel;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -33,9 +34,12 @@ public class User {
     @CreationTimestamp(source = SourceType.DB)
     private Instant createdOn;
 
-    // Association with the role id
+    @Enumerated(EnumType.STRING)
+    private SkillLevel skillLevel;
 
+    // Association with the role id
     @ManyToOne
     @JoinColumn(nullable = false)
     private Role role;
+
 }
