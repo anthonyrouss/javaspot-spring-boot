@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -34,7 +35,7 @@ public class SecurityConfig {
         return http
                 .addFilterBefore(new SignInPageFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(configurer -> configurer
-                        .requestMatchers("/css/**", "/auth/signUp").permitAll()
+                        .requestMatchers("/css/**", "/js/**", "/auth/signUp").permitAll()
                         .anyRequest().hasAuthority(UserRole.STUDENT.getRole())
                 )
                 .formLogin(form -> form
@@ -48,6 +49,7 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/auth/signIn?logout")
                         .permitAll()
                 )
+                .csrf(AbstractHttpConfigurer::disable)
                 .build();
     }
 
