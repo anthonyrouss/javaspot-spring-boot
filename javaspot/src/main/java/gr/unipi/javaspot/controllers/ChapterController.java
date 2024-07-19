@@ -14,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.security.Principal;
+
 @Controller
 @AllArgsConstructor
 public class ChapterController {
@@ -37,9 +39,8 @@ public class ChapterController {
     }
 
     @GetMapping("/chapters/{id}/exams")
-    public String getChapterExams(Model model, @PathVariable int id) {
-        // TODO: Remove hardcoded username
-        Exam exam = examService.findAvailableExam("demo-user", id);
+    public String getChapterExams(Model model, @PathVariable int id, Principal principal) {
+        Exam exam = examService.findAvailableExam(principal.getName(), id);
 
         model.addAttribute("examId", exam.getId());
         model.addAttribute("examChapterId", exam.getChapter().getId());
