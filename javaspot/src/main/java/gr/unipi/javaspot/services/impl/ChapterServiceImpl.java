@@ -1,5 +1,6 @@
 package gr.unipi.javaspot.services.impl;
 
+import gr.unipi.javaspot.dtos.ChapterDTO;
 import gr.unipi.javaspot.models.Chapter;
 import gr.unipi.javaspot.repositories.ChapterRepository;
 import gr.unipi.javaspot.services.ChapterService;
@@ -23,5 +24,11 @@ public class ChapterServiceImpl implements ChapterService {
     @Override
     public Optional<Chapter> getById(int id) {
         return chapterRepository.findById(id);
+    }
+
+    @Override
+    public List<ChapterDTO> getNextChapters(int prerequisiteId) {
+        List<Chapter> chapters = chapterRepository.findByPrerequisiteId(prerequisiteId);
+        return chapters.stream().map(Chapter::toDto).toList();
     }
 }
