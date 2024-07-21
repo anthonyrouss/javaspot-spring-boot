@@ -38,7 +38,7 @@ public class AuthController {
         }
 
         userService.signUpAsStudent(userDto);
-        return "redirect:/auth/signIn";
+        return "redirect:/auth/signUp?success";
     }
 
 }

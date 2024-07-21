@@ -13,14 +13,16 @@ import org.springframework.web.filter.GenericFilterBean;
 
 import java.io.IOException;
 
-public class SignInPageFilter extends GenericFilterBean {
+public class AuthPagesFilter extends GenericFilterBean {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-        if (isAuthenticated() && request.getRequestURI().equals("/auth/signIn")) {
+        // Redirect to index page if user is authenticated and tries to access auth related endpoints
+        boolean isAuthRelatedEndpoint = request.getRequestURI().equals("/auth/signIn") || request.getRequestURI().equals("/auth/signUp");
+        if (isAuthenticated() && isAuthRelatedEndpoint) {
             String encodedRedirectURL = response.encodeRedirectURL(request.getContextPath() + "/index");
             response.setStatus(HttpServletResponse.SC_TEMPORARY_REDIRECT);
             response.setHeader("Location", encodedRedirectURL);
