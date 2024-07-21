@@ -33,7 +33,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .addFilterBefore(new SignInPageFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new AuthPagesFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(configurer -> configurer
                         .requestMatchers("/css/**", "/js/**", "/auth/signUp").permitAll()
                         .anyRequest().hasAuthority(UserRole.STUDENT.getRole())
