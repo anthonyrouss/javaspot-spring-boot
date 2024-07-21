@@ -1,7 +1,7 @@
 package gr.unipi.javaspot.models;
 
 import gr.unipi.javaspot.dtos.DtoConvertible;
-import gr.unipi.javaspot.dtos.QuestionDTO;
+import gr.unipi.javaspot.dtos.QuestionDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,7 +11,7 @@ import lombok.*;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Question implements DtoConvertible<QuestionDTO> {
+public class Question implements DtoConvertible<QuestionDto> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,8 +26,8 @@ public class Question implements DtoConvertible<QuestionDTO> {
     private Chapter chapter;
 
     @Override
-    public QuestionDTO toDto() {
-        return new QuestionDTO(
+    public QuestionDto toDto() {
+        return new QuestionDto(
                 this.text
         );
     }

@@ -1,6 +1,6 @@
 package gr.unipi.javaspot.models;
 
-import gr.unipi.javaspot.dtos.ChapterDTO;
+import gr.unipi.javaspot.dtos.ChapterDto;
 import gr.unipi.javaspot.dtos.DtoConvertible;
 import gr.unipi.javaspot.enums.SkillLevel;
 import jakarta.persistence.*;
@@ -15,7 +15,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Chapter implements DtoConvertible<ChapterDTO> {
+public class Chapter implements DtoConvertible<ChapterDto> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,8 +40,8 @@ public class Chapter implements DtoConvertible<ChapterDTO> {
     List<Question> questions;
 
     @Override
-    public ChapterDTO toDto() {
-        return new ChapterDTO(
+    public ChapterDto toDto() {
+        return new ChapterDto(
                 this.id,
                 this.title,
                 this.description,
