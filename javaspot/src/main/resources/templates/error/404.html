@@ -1,12 +1,17 @@
 <!-- src/main/resources/templates/404.html -->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/_error-page-layout}">
 <head>
     <title>Page Not Found</title>
 </head>
 <body>
-<h1>404 - Page Not Found</h1>
-<p th:text="${message}"></p>
-<a th:href="@{/}">Go Home</a>
+<div layout:fragment="main-content">
+    <h1>404 - Page Not Found</h1>
+    <p th:text="${message}"></p>
+    <a th:href="@{/}">Go Home</a>
+</div>
 </body>
 </html>
