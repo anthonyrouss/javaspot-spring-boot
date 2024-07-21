@@ -22,7 +22,7 @@
 
             <ul class="nav col-12 col-lg-auto me-lg-auto justify-content-center mb-md-0">
                 <li><a th:href="@{/}" class="nav-link px-2 link-secondary">Home</a></li>
-                <li><a th:href="@{/}" class="nav-link px-2 link-secondary">Progress</a></li>
+                <li><a th:href="@{/me/progress}" class="nav-link px-2 link-secondary">Progress</a></li>
             </ul>
 
             <div class="dropdown text-end">
@@ -31,7 +31,7 @@
                     <img th:src="@{/img/user.png}" alt="mdo" width="32" height="32" class="rounded-circle">
                 </a>
                 <ul class="dropdown-menu text-small" style="">
-                    <li><a class="dropdown-item" href="#">Progress</a></li>
+                    <li><a class="dropdown-item" th:href="@{/me/progress}">Progress</a></li>
                     <li>
                         <hr class="dropdown-divider">
                     </li>
