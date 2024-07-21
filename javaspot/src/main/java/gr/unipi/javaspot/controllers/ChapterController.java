@@ -24,7 +24,7 @@ public class ChapterController {
     private final SectionService sectionService;
     private final ExamService examService;
 
-    @GetMapping({"/", "/chapters"})
+    @GetMapping({"/", "/index", "/chapters"})
     public String getChapters(Model model) {
         model.addAttribute("chapters", chapterService.findAll());
         return ControllerConstants.CHAPTERS.getHtmlFilePath();
