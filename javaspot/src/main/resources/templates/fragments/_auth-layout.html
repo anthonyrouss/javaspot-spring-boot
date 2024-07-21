@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">JavaSpot</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+
+    <!-- Custom styles for alert -->
+    <style>
+        .alert-danger {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+
+        .alert-success {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+    </style>
+
+    <!-- Custom style for validation error -->
+    <style>
+        .validation-error {
+            color: red;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+<!-- main content -->
+<div layout:fragment="main-content"></div>
+
+<!-- Footer -->
+<footer class="bg-light text-center text-lg-start mt-5">
+    <div class="container p-4">
+        <p><small>© 2024 JavaSpot. Created as a University Assignment Project by <a
+                href="https://github.com/dimitrisstyl7" target="_blank">dimitrisstyl7</a> &amp; <a
+                href="https://github.com/anthonyrouss" target="_blank">anthonyrouss</a>. All Rights Reserved.</small>
+        </p>
+    </div>
+</footer>
+</body>
+
+</html>
