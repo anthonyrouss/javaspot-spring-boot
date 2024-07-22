@@ -2,6 +2,7 @@ package gr.unipi.javaspot.services.impl;
 
 import gr.unipi.javaspot.dtos.AnswerRequest;
 import gr.unipi.javaspot.dtos.ExamProgress;
+import gr.unipi.javaspot.dtos.ExamStats;
 import gr.unipi.javaspot.enums.ExamStatus;
 import gr.unipi.javaspot.dtos.AnswerEvaluation;
 import gr.unipi.javaspot.exceptions.InvalidAction;
@@ -148,6 +149,18 @@ public class ExamServiceImpl implements ExamService {
                 .count();
 
         return new ExamProgress(correctAnswers, examQuestions.size());
+    }
+
+    @Override
+    public List<ExamStats> getExamStatsByUsername(String username) {
+        // Fetch the completed exams of the user
+        Optional<List<Exam>> optionalExamList = examRepository.findAllByUser_UsernameAndStatus(username, ExamStatus.COMPLETED);
+
+        if (optionalExamList.isEmpty()) return List.of();
+
+        List<Exam> examList = optionalExamList.get();
+
+        return examList.stream().map(Exam::toExamStats).toList();
     }
 
     private void initializeQuestions(Exam exam) {

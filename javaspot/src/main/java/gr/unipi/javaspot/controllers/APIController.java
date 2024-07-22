@@ -35,7 +35,7 @@ public class APIController {
 
     @GetMapping("exams/{id}/question")
     @ResponseStatus(HttpStatus.OK)
-    public QuestionDTO getQuestion(@PathVariable int id) {
+    public QuestionDto getQuestion(@PathVariable int id) {
         var question = examService.getQuestion(id);
         return question.toDto();
     }
@@ -60,7 +60,7 @@ public class APIController {
 
     @GetMapping("chapters/next")
     @ResponseStatus(HttpStatus.OK)
-    public List<ChapterDTO> getNextChapters(@RequestParam int prerequisiteChapterId) {
+    public List<ChapterDto> getNextChapters(@RequestParam int prerequisiteChapterId) {
         return chapterService.getNextChapters(prerequisiteChapterId);
     }
 

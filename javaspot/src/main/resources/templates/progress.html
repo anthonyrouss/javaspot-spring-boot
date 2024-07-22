@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/_page-layout}">
+<head>
+    <title>Progress Page</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+    <div class="content container my-5">
+        <h1 class="text-center mb-4">Your Progress</h1>
+        <div class="accordion" id="progressAccordion">
+            <div th:if="${#lists.isEmpty(examStatsList)}" class="alert alert-info" role="alert">
+                No exam statistics available.
+            </div>
+            <div th:each="examStats: ${examStatsList}" class="accordion-item">
+                <h2 class="accordion-header" th:id="${'chapter' + examStats.chapter.id + 'Heading'}">
+                    <button th:text="${examStats.chapter.title + ' Exams'}" class="accordion-button" type="button" data-bs-toggle="collapse" th:data-bs-target="${'#chapter' + examStats.chapter.id}" aria-expanded="true" th:aria-controls="${'chapter' + examStats.chapter.id}">
+                    </button>
+                </h2>
+                <div th:id="${'chapter' + examStats.chapter.id}" class="accordion-collapse collapse show" th:aria-labelledby="${'chapter' + examStats.chapter.id + 'Heading'}" data-bs-parent="#progressAccordion">
+                    <div class="accordion-body">
+                        <div th:if="${#lists.isEmpty(examStats.questions)}" class="alert alert-warning" role="alert">
+                            No answered questions found for this exam.
+                        </div>
+                        <div th:unless="${#lists.isEmpty(examStats.questions)}">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Question</th>
+                                    <th>Tries</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="question: ${examStats.questions}">
+                                    <td th:text="${question.question}"></td>
+                                    <td th:text="${question.tries}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,5 +1,7 @@
 package gr.unipi.javaspot.models;
 
+import gr.unipi.javaspot.dtos.ExamQuestionDto;
+import gr.unipi.javaspot.dtos.ExamStats;
 import gr.unipi.javaspot.embeddables.ExamQuestionId;
 import gr.unipi.javaspot.enums.ExamStatus;
 import jakarta.persistence.*;
@@ -56,6 +58,14 @@ public class Exam {
 
             examQuestions.add(examQuestion);
         });
+    }
+
+    public ExamStats toExamStats() {
+        List<ExamQuestionDto> examQuestionDtoList = examQuestions.stream().map(ExamQuestion::toDto).toList();
+        return new ExamStats(
+                chapter.toDto(),
+                examQuestionDtoList
+        );
     }
 
 }

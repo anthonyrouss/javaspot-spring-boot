@@ -1,6 +1,6 @@
 package gr.unipi.javaspot.dtos;
 
-public record QuestionDTO(
+public record QuestionDto(
         String text
 ) {
 }
