@@ -27,8 +27,7 @@ public class ChapterServiceImpl implements ChapterService {
     }
 
     @Override
-    public List<ChapterDto> getNextChapters(int prerequisiteId) {
-        List<Chapter> chapters = chapterRepository.findByPrerequisiteId(prerequisiteId);
-        return chapters.stream().map(Chapter::toDto).toList();
+    public List<Chapter> getNextChapters(int prerequisiteId) {
+        return chapterRepository.findByPrerequisiteId(prerequisiteId);
     }
 }
