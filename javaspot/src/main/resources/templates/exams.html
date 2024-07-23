@@ -39,7 +39,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Congratulations on finishing the exam on <span id="examChapterTitle">Chapter 1</span>!</p>
+                    <p>Congratulations on finishing the exam on <span id="examChapterTitle"
+                                                                      th:text="${examChapterTitle}"></span>!</p>
                     <div class="container">
                         <h6>Unlocked Chapters:</h6>
                         <div id="unlocked-chapters-container">
