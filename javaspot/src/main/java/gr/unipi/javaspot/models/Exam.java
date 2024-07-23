@@ -29,8 +29,8 @@ public class Exam {
     private User user;
 
     // Association with a chapter
-    @ManyToOne
-    @JoinColumn(nullable = false)
+    @OneToOne
+    @JoinColumn(name = "chapter_id", nullable = false)
     private Chapter chapter;
 
     @Enumerated(EnumType.STRING)

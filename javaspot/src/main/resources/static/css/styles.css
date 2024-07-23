@@ -1,3 +1,7 @@
+.main-content {
+    min-height: 60vh;
+}
+
 .course-header {
     background: #f8f9fa;
     padding: 30px 0;
@@ -9,7 +13,6 @@
 .chapter-card .card {
     overflow: hidden;
 }
-
 .locked-card {
     background-color: #f8f9fa; /* Change this color to make it darker */
     opacity: 0.7;
@@ -17,7 +20,6 @@
 .locked-card .card-title i {
     margin-right: 5px;
 }
-
 .locked-overlay {
     background: rgba(0, 0, 0, 0.6);
     position: absolute;

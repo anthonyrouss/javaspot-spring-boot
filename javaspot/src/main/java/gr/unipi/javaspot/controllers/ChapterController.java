@@ -63,6 +63,8 @@ public class ChapterController {
 
         model.addAttribute("selectedChapterTitle", selectedChapter.getTitle());
         model.addAttribute("sections", sectionService.getAllByChapterId(id));
+        model.addAttribute("chapterId", id);
+        model.addAttribute("examStatus", selectedChapter.getExam().getStatus());
         return ControllerConstants.SECTIONS.getHtmlFilePath();
     }
 

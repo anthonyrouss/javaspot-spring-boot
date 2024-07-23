@@ -72,7 +72,11 @@ public class UserServiceImpl implements UserService {
     }
       
     public void updateSkillLevel(SkillLevelQuestion[] questions) {
-        User user = userRepository.findByUsername(getUserDetails().getUsername());
+        Optional<User> userOptional = userRepository.findByUsername(getUserDetails().getUsername());
+
+        if (userOptional.isEmpty()) throw new UsernameNotFoundException("User with username " + getUserDetails().getUsername() + " not found.");
+
+        User user = userOptional.get();
 
         // Set skill level based on the answers to the questions
         if (examinerService.analyzeAnswer(questions[1].getText(), questions[1].getAnswer()).isCorrect()) {

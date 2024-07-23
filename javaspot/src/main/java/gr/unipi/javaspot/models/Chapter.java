@@ -40,6 +40,9 @@ public class Chapter implements DtoConvertible<ChapterDto> {
     @OneToMany(mappedBy = "chapter", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Question> questions;
 
+    @OneToOne(mappedBy = "chapter")
+    private Exam exam;
+
     @Override
     public ChapterDto toDto() {
         return new ChapterDto(
