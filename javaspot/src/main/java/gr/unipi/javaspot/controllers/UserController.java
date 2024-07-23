@@ -1,7 +1,9 @@
 package gr.unipi.javaspot.controllers;
 
+import gr.unipi.javaspot.dtos.ExamStats;
 import gr.unipi.javaspot.dtos.SkillLevelQuestion;
 import gr.unipi.javaspot.dtos.SkillLevelQuestionsWrapper;
+import gr.unipi.javaspot.services.ExamService;
 import gr.unipi.javaspot.services.QuestionService;
 import gr.unipi.javaspot.services.UserService;
 import jakarta.validation.Valid;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,6 +27,7 @@ import static gr.unipi.javaspot.security.SecurityConfig.getUserDetails;
 @RequiredArgsConstructor
 public class UserController {
 
+    private final ExamService examService;
     private final QuestionService questionService;
     private final UserService userService;
     private final Map<Integer, SkillLevelQuestion[]> skillLevelQuestions = new HashMap<>();
@@ -56,6 +60,15 @@ public class UserController {
 
         userService.updateSkillLevel(serverSideQuestions);
         return "redirect:/";
+    }
+
+    @GetMapping("/progress")
+    public String getProgress(Model model, Principal principal) {
+        // Get the Exam Stats of the user
+        List<ExamStats> examStatsList = examService.getExamStatsByUsername(principal.getName());
+
+        model.addAttribute("examStatsList", examStatsList);
+        return "progress";
     }
 
 }

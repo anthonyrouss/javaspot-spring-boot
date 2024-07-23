@@ -1,5 +1,7 @@
 package gr.unipi.javaspot.models;
 
+import gr.unipi.javaspot.dtos.DtoConvertible;
+import gr.unipi.javaspot.dtos.ExamQuestionDto;
 import gr.unipi.javaspot.embeddables.ExamQuestionId;
 import jakarta.persistence.*;
 import lombok.*;
@@ -11,7 +13,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ExamQuestion {
+public class ExamQuestion implements DtoConvertible<ExamQuestionDto> {
 
     @EmbeddedId
     private ExamQuestionId id;
@@ -32,4 +34,11 @@ public class ExamQuestion {
     @Column(nullable = false)
     private boolean foundAnswer;
 
+    @Override
+    public ExamQuestionDto toDto() {
+        return new ExamQuestionDto(
+                question.getText(),
+                tries
+        );
+    }
 }
