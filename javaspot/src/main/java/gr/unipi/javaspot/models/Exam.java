@@ -68,4 +68,9 @@ public class Exam {
         );
     }
 
+    public Exam(User user, Chapter chapter, ExamStatus status) {
+        this.user = user;
+        this.chapter = chapter;
+        this.status = status;
+    }
 }

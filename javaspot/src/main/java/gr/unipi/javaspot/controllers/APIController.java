@@ -1,6 +1,7 @@
 package gr.unipi.javaspot.controllers;
 
 import gr.unipi.javaspot.dtos.*;
+import gr.unipi.javaspot.models.Chapter;
 import gr.unipi.javaspot.services.ChapterService;
 import gr.unipi.javaspot.services.ExamService;
 import org.springframework.http.HttpStatus;
@@ -61,7 +62,7 @@ public class APIController {
     @GetMapping("chapters/next")
     @ResponseStatus(HttpStatus.OK)
     public List<ChapterDto> getNextChapters(@RequestParam int prerequisiteChapterId) {
-        return chapterService.getNextChapters(prerequisiteChapterId);
+        return chapterService.getNextChapters(prerequisiteChapterId).stream().map(Chapter::toDto).toList();
     }
 
 }
