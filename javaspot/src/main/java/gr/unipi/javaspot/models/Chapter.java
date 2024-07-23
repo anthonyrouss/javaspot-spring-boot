@@ -29,7 +29,6 @@ public class Chapter implements DtoConvertible<ChapterDto> {
     @Column(nullable = false)
     private String description;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private SkillLevel skillLevel;
 
@@ -37,7 +36,7 @@ public class Chapter implements DtoConvertible<ChapterDto> {
     @JoinColumn(name = "prerequisite_id")
     private Chapter prerequisite;
 
-    @OneToMany(mappedBy = "chapter", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "chapter", cascade = CascadeType.ALL)
     List<Question> questions;
 
     @OneToOne(mappedBy = "chapter")
