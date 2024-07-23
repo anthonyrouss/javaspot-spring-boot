@@ -1,5 +1,5 @@
 package gr.unipi.javaspot.enums;
 
 public enum SkillLevel {
-    BEGINNER, INTERMEDIATE, ADVANCED
+    INTRO, BEGINNER, INTERMEDIATE
 }

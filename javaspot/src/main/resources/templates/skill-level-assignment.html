@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/_page-layout}">
+<head>
+    <title>Skill Level Assignment</title>
+
+    <!-- Custom style for validation error -->
+    <style>
+        .validation-error {
+            color: red;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+<div layout:fragment="main-content">
+    <div id="skill-assignment-content" class="container mt-3">
+        <h1 class="text-center mb-4">Skill Level Assignment</h1>
+        <div class="alert alert-info d-flex align-items-center alert-dismissible fade show" role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                 class="bi flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Info:">
+                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+            </svg>
+            Welcome to the skill level assignment test. This test will help us determine your current skill
+            level.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <div class="card shadow-sm mt-3">
+            <div class="card-body">
+                <form th:action="@{/me/skill-level}" th:object="${wrapperClass}" method="post">
+                    <div class="form-group">
+                        <div class="mb-3" th:each="q, itemStat : *{questions}">
+                            <label th:for="${'answer-field-' + q.skillLevel.ordinal}" th:text="${q.text}"></label>
+                            <input type="hidden" th:field="*{questions[__${itemStat.index}__].text}"/>
+                            <textarea class="form-control mt-2" th:id="${'answer-field-' + q.skillLevel.ordinal}"
+                                      rows="1" th:field="*{questions[__${itemStat.index}__].answer}"
+                                      placeholder="Enter your answer"></textarea>
+                            <span class="validation-error"
+                                  th:if="${#fields.hasErrors('questions['+itemStat.index+'].answer')}"
+                                  th:errors="*{questions[__${itemStat.index}__].answer}"></span>
+                            <input type="hidden" th:field="*{questions[__${itemStat.index}__].skillLevel}"/>
+                        </div>
+
+                        <button id="submit-btn" class="btn btn-primary" type="submit">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
