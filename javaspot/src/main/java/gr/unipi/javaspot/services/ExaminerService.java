@@ -24,6 +24,7 @@ public interface ExaminerService {
         User's answer: {{answer}}
 
         Could you please review the provided answer and let me know if it is correct?
+        If the answer is an empty string, please consider it as an unanswered question.
         It is important NOT to give away the answer to the question in your comment. Thank you!
         """)
     AnswerEvaluation analyzeAnswer(@V("question") String question, @V("answer") String answer);
