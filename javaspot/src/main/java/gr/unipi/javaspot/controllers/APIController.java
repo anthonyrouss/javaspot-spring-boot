@@ -4,6 +4,7 @@ import gr.unipi.javaspot.dtos.*;
 import gr.unipi.javaspot.models.Chapter;
 import gr.unipi.javaspot.services.ChapterService;
 import gr.unipi.javaspot.services.ExamService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,21 +13,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")
+@RequiredArgsConstructor
 public class APIController {
 
     private final ChapterService chapterService;
     private final ExamService examService;
 
-    public APIController(
-            ChapterService chapterService,
-            ExamService examService
-    ) {
-        this.chapterService = chapterService;
-        this.examService = examService;
-    }
-
-    // TODO: Add aspect to check if the exam belongs to the caller (user)
-    // TODO: Add userId to auth object
+    // TODO: Check if the exam belongs to the caller (user)
 
     @PutMapping("exams/{id}/start")
     @ResponseStatus(HttpStatus.OK)
