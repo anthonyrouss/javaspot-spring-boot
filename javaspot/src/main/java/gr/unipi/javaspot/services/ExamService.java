@@ -10,7 +10,7 @@ import gr.unipi.javaspot.models.Question;
 import java.util.List;
 
 public interface ExamService {
-    Exam findAvailableExam(String username, int sectionId);
+    Exam findAvailableExam(String username, int chapterId);
     Question getQuestion(int examId);
     AnswerEvaluation analyzeAnswer(AnswerRequest answerRequest);
     void startExam(int examId);
