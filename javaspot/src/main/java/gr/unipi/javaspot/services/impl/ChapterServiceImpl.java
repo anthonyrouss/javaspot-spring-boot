@@ -1,6 +1,5 @@
 package gr.unipi.javaspot.services.impl;
 
-import gr.unipi.javaspot.dtos.ChapterDto;
 import gr.unipi.javaspot.models.Chapter;
 import gr.unipi.javaspot.repositories.ChapterRepository;
 import gr.unipi.javaspot.services.ChapterService;

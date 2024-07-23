@@ -35,7 +35,6 @@ public class User {
     @CreationTimestamp(source = SourceType.DB)
     private Instant createdOn;
 
-    @Enumerated(EnumType.STRING)
     private SkillLevel skillLevel;
 
     // Association with the role id
@@ -43,11 +42,11 @@ public class User {
     @JoinColumn(nullable = false)
     private Role role;
 
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(
             name = "users_chapters",
-            joinColumns = { @JoinColumn(name = "user_id") },
-            inverseJoinColumns = { @JoinColumn(name = "chapter_id") }
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "chapter_id")}
     )
     private List<Chapter> unlockedChapters;
 

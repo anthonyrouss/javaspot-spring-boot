@@ -10,6 +10,7 @@ import gr.unipi.javaspot.models.Chapter;
 import gr.unipi.javaspot.models.Exam;
 import gr.unipi.javaspot.models.Role;
 import gr.unipi.javaspot.models.User;
+import gr.unipi.javaspot.repositories.ChapterRepository;
 import gr.unipi.javaspot.repositories.ExamRepository;
 import gr.unipi.javaspot.repositories.UserRepository;
 import gr.unipi.javaspot.services.ExaminerService;
@@ -29,8 +30,9 @@ import static gr.unipi.javaspot.security.SecurityConfig.getUserDetails;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
     private final ExamRepository examRepository;
+    private final ChapterRepository chapterRepository;
+    private final PasswordEncoder passwordEncoder;
     private final ExaminerService examinerService;
 
     @Override
@@ -60,21 +62,29 @@ public class UserServiceImpl implements UserService {
     @Override
     public void unlockChapters(String username, List<Chapter> chapters) {
         Optional<User> userOptional = userRepository.findByUsername(username);
-        if (userOptional.isEmpty()) throw new UsernameNotFoundException("User with username " + username + " not found.");
+
+        if (userOptional.isEmpty())
+            throw new UsernameNotFoundException("User with username " + username + " not found.");
 
         User user = userOptional.get();
 
-        user.addUnlockedChapters(chapters);
-        userRepository.save(user);
+        chapters.forEach(chapter -> {
+            if (!userRepository.existsByUnlockedChaptersContainsAndId(chapter, user.getId())) {
+                user.addUnlockedChapters(List.of(chapter));
 
-        // Create an exam for each chapter
-        chapters.forEach(chapter -> examRepository.save(new Exam(user, chapter, ExamStatus.NOT_STARTED)));
+                // Create an exam for the unlocked chapter
+                examRepository.save(new Exam(user, chapter, ExamStatus.NOT_STARTED));
+            }
+        });
+
+        userRepository.save(user);
     }
-      
+
     public void updateSkillLevel(SkillLevelQuestion[] questions) {
         Optional<User> userOptional = userRepository.findByUsername(getUserDetails().getUsername());
 
-        if (userOptional.isEmpty()) throw new UsernameNotFoundException("User with username " + getUserDetails().getUsername() + " not found.");
+        if (userOptional.isEmpty())
+            throw new UsernameNotFoundException("User with username " + getUserDetails().getUsername() + " not found.");
 
         User user = userOptional.get();
 
@@ -87,6 +97,10 @@ public class UserServiceImpl implements UserService {
             user.setSkillLevel(SkillLevel.INTRO);
         }
         userRepository.save(user);
+
+        // Unlock the chapters based on the skill level
+        List<Chapter> chapters = chapterRepository.findChaptersBySkillLevelLessThanEqual(user.getSkillLevel());
+        unlockChapters(user.getUsername(), chapters);
 
         // Update UserDetails with the new skill level
         getUserDetails().setSkillLevel(user.getSkillLevel());
