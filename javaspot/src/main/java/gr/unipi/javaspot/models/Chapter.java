@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "chapters")
@@ -47,5 +48,18 @@ public class Chapter implements DtoConvertible<ChapterDto> {
                 this.description,
                 this.skillLevel
         );
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Chapter chapter = (Chapter) o;
+        return Objects.equals(id, chapter.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }
