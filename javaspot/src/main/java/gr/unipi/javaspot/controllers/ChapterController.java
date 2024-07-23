@@ -1,6 +1,7 @@
 package gr.unipi.javaspot.controllers;
 
 import gr.unipi.javaspot.dtos.ChapterAvailability;
+import gr.unipi.javaspot.enums.ControllerConstants;
 import gr.unipi.javaspot.enums.ExamStatus;
 import gr.unipi.javaspot.exceptions.ChapterNotFoundException;
 import gr.unipi.javaspot.exceptions.InvalidAction;
@@ -10,7 +11,6 @@ import gr.unipi.javaspot.models.User;
 import gr.unipi.javaspot.services.ChapterService;
 import gr.unipi.javaspot.services.ExamService;
 import gr.unipi.javaspot.services.SectionService;
-import gr.unipi.javaspot.enums.ControllerConstants;
 import gr.unipi.javaspot.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
