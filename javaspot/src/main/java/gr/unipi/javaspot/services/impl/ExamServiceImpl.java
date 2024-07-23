@@ -7,14 +7,15 @@ import gr.unipi.javaspot.enums.ExamStatus;
 import gr.unipi.javaspot.dtos.AnswerEvaluation;
 import gr.unipi.javaspot.exceptions.InvalidAction;
 import gr.unipi.javaspot.exceptions.ResourceNotFoundException;
-import gr.unipi.javaspot.models.Exam;
-import gr.unipi.javaspot.models.ExamQuestion;
-import gr.unipi.javaspot.models.Question;
+import gr.unipi.javaspot.models.*;
 import gr.unipi.javaspot.repositories.ExamQuestionRepository;
 import gr.unipi.javaspot.repositories.ExamRepository;
 import gr.unipi.javaspot.repositories.QuestionRepository;
+import gr.unipi.javaspot.services.ChapterService;
 import gr.unipi.javaspot.services.ExamService;
 import gr.unipi.javaspot.services.ExaminerService;
+import gr.unipi.javaspot.services.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -22,24 +23,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class ExamServiceImpl implements ExamService {
 
     private final ExamRepository examRepository;
     private final QuestionRepository questionRepository;
     private final ExaminerService examinerService;
     private final ExamQuestionRepository examQuestionRepository;
-
-    public ExamServiceImpl(
-            ExamRepository examRepository,
-            QuestionRepository questionRepository,
-            ExaminerService examinerService,
-            ExamQuestionRepository examQuestionRepository
-    ) {
-        this.examRepository = examRepository;
-        this.questionRepository = questionRepository;
-        this.examinerService = examinerService;
-        this.examQuestionRepository = examQuestionRepository;
-    }
+    private final UserService userService;
+    private final ChapterService chapterService;
 
     @Override
     public Exam findAvailableExam(
@@ -110,6 +102,14 @@ public class ExamServiceImpl implements ExamService {
         if (examFinished) {
             exam.setStatus(ExamStatus.COMPLETED);
             examRepository.save(exam);
+
+            List<Chapter> nextChapters = chapterService.getNextChapters(exam.getChapter().getId());
+
+            // Unlock next chapters
+            userService.unlockChapters(
+                    answerRequest.getUsername(),
+                    nextChapters
+            );
         }
 
         return examinersEvaluation;
