@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SourceType;
 
 import java.time.Instant;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -41,5 +42,17 @@ public class User {
     @ManyToOne
     @JoinColumn(nullable = false)
     private Role role;
+
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "users_chapters",
+            joinColumns = { @JoinColumn(name = "user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "chapter_id") }
+    )
+    private List<Chapter> unlockedChapters;
+
+    public void addUnlockedChapters(List<Chapter> chapters) {
+        unlockedChapters.addAll(chapters);
+    }
 
 }
