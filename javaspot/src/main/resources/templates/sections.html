@@ -15,8 +15,17 @@
         </div>
     </div>
 
-    <!-- Chapters List -->
-    <div class="container mt-5">
+    <!-- Sections List -->
+    <div class="main-content container mt-5">
+
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#" th:href="@{'/'}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page" th:text="${selectedChapterTitle}">Chapter Title</li>
+            </ol>
+        </nav>
+
         <h2 class="mb-4">Sections</h2>
         <div class="row" th:unless="${sections.isEmpty()}">
             <div th:each="section : ${sections}" class="col-md-4 chapter-card">
@@ -26,6 +35,21 @@
                             <h5 class="card-title" th:text="${section.title}"></h5>
                             <p class="card-text" th:text="${section.description}"></p>
                         </div>
+                    </div>
+                </a>
+            </div>
+            <div th:if="${examStatus.toString().equals('COMPLETED')}" class="card col-md-4 chapter-card locked-card">
+                <div class="card-body">
+                    <h5 class="card-title">Exams</h5>
+                    <span class="badge bg-success">Completed</span>
+                </div>
+            </div>
+            <div th:unless="${examStatus.toString().equals('COMPLETED')}" class="card col-md-4 chapter-card">
+                <a href="#" th:href="@{'/chapters/' + ${chapterId} + '/exams'}" class="card-link">
+                    <div class="card-body">
+                        <h5 class="card-title">Exams</h5>
+                        <span th:if="${examStatus.toString().equals('NOT_STARTED')}" class="badge bg-secondary">Not Started</span>
+                        <span th:if="${examStatus.toString().equals('IN_PROGRESS')}" class="badge bg-primary">In Progress</span>
                     </div>
                 </a>
             </div>
